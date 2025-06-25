@@ -24,7 +24,7 @@ jobs:
       - name: Run benchmark with criterion
         working-directory: ./rust
         run: |
-          cargo criterion --output-format bencher --benches 2>&1 | grep -vE 'applying input plugin|search|\[1A' | tr -d '\n' > output.txt
+          cargo criterion --output-format bencher --benches 2>&1 | grep -vE 'applying input plugin|search|\[1A|^$' > output.txt
           cat -v output.txt
 
       - name: Store benchmark result
