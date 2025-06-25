@@ -42,6 +42,10 @@ fn downtown_denver_example(query_file: String) {
     }
 }
 
+fn downtown_denver_example2(query_file: String) {
+    black_box(query_file.to_ascii_lowercase());
+}
+
 /// Benchmark the downtown denver example using criterion
 fn bench_example(c: &mut Criterion) {
     let mut group = c.benchmark_group("routee-compass");
@@ -62,6 +66,14 @@ fn bench_example(c: &mut Criterion) {
     group.bench_with_input("downtown denver example", &tmp_path, |b, input| {
         b.iter(|| {
             black_box(downtown_denver_example(black_box(
+                input.to_str().unwrap().to_string(),
+            )))
+        })
+    });
+
+    group.bench_with_input("downtown denver example 2", &tmp_path, |b, input| {
+        b.iter(|| {
+            black_box(downtown_denver_example2(black_box(
                 input.to_str().unwrap().to_string(),
             )))
         })
