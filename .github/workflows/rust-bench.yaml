@@ -25,7 +25,7 @@ jobs:
         working-directory: ./rust
         run: |
           cargo criterion --output-format bencher --benches 2>&1 | grep bench > output.txt
-          cat output.txt
+          cat -v output.txt
 
       - name: Store benchmark result
         uses: benchmark-action/github-action-benchmark@v1
