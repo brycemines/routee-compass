@@ -18,14 +18,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install cargo-criterion
-        run: cargo install cargo-criterion
-
       - name: Run benchmark with criterion
         working-directory: ./rust
-        run: |
-          cargo criterion --output-format bencher --benches 2>&1 | grep -vE 'applying input plugin|search|\[1A|^$' | awk '$1=="bench:" {print f $0} {f=$0 ; print}' > output.txt
-          cat -v output.txt
+        run: cargo bench -p testing-things -- --output-format bencher | tee output.txt
 
       - name: Store benchmark result
         uses: benchmark-action/github-action-benchmark@v1
